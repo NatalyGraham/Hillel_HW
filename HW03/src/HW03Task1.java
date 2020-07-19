@@ -4,17 +4,18 @@ public class HW03Task1 {
 
         for (int currentElement : initialArray
         ) {
-            int evenNumber = currentElement % 2;
-            if (evenNumber == 0) {
+            int modulo = currentElement % 2;
+            if (modulo == 0) {
                 System.out.print(currentElement + " ");
             }
         }
+
         System.out.println();
 
         for (int currentElement : initialArray
         ) {
-            int evenNumber = currentElement % 2;
-            if (evenNumber != 0) {
+            int modulo = currentElement % 2;
+            if (modulo != 0) {
                 System.out.print(currentElement + " ");
             }
         }
