@@ -5,7 +5,7 @@ public class HW03Task2 {
 
         for (int currentNumber : initialArray
         ) {
-            while (currentNumber % counter != 0) {
+            while (currentNumber % counter != 0 || counter == Math.sqrt(currentNumber)) {
                 counter++;
             }
             if (counter == currentNumber || currentNumber == 1) {
