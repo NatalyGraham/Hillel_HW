@@ -9,8 +9,7 @@ public class Runner {
                 new Car("id125", "Niva", "X09X", 2009, "blue",
                         2999.99, "AX1732XA"),
                 new Car("id127", "Mersedes", "GLK", 1985, "black",
-                        7999.99, "AX7777XA"),};
-
+                        7999.99, "AX7777XA")};
 
         CarProcessor processor = new CarProcessor();
         processor.carBrandSearcher(cars, "Niva");
