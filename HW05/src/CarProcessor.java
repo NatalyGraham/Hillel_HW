@@ -10,7 +10,7 @@ public class CarProcessor {
             }
         }
         if (i == 0) {
-            System.out.println("No such cars in the base.");
+            printNoCars();
         }
 
     }
@@ -26,7 +26,7 @@ public class CarProcessor {
             }
         }
         if (i == 0) {
-            System.out.println("No such cars in the base.");
+            printNoCars();
         }
 
     }
@@ -41,16 +41,20 @@ public class CarProcessor {
             }
         }
         if (i == 0) {
-            System.out.println("No such cars in the base.");
+            printNoCars();
         }
 
     }
 
-    public static void printCars(Car car) {
+    public void printCars(Car car) {
 
-        System.out.println(car.id + " " + car.brand + " " + car.model + " " +
-                car.productionYear + " " + car.color + " " + car.cost + " " +
-                car.registrationNumber);
+        System.out.println( car.id + " " + car.brand + " " + car.model + " " +
+                            car.productionYear + " " + car.color + " " + car.cost + " " +
+                            car.registrationNumber);
+    }
+
+    public void printNoCars() {
+        System.out.println("There are no such cars in the base.");
     }
 
 }
