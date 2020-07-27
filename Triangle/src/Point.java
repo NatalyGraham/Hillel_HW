@@ -1,18 +1,18 @@
 public class Point {
 
-    private int coordinateX;
-    private int CoordinateY;
+    private double coordinateX;
+    private double CoordinateY;
 
-    Point (int x, int y) {
+    Point (double x, double y) {
         this.coordinateX = x;
         this.CoordinateY = y;
     }
 
-    public int getCoordinateX() {
+    public double getCoordinateX() {
         return coordinateX;
     }
 
-    public int getCoordinateY() {
+    public double getCoordinateY() {
         return CoordinateY;
     }
 }
