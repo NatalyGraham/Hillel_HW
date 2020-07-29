@@ -9,7 +9,8 @@ public class ECar extends Sedan{
 
     @Override
     public String toString() {
-        return "Electric Car " +"Brand " + getBrand() + ", max velocity " + getVelocity() + " km/h, cost " + getCost() +
-                " $, fuel consumption " + getFuelConsumption() + " l/100km, time for charging "  + timeFullCharge + " h.";
+        return "Electric Car " +"Brand " + getBrand() + ", max velocity " + getVelocity() + " [km/h], cost " + getCost() +
+                " [$], fuel consumption " + getFuelConsumption() + " [l/100km], time for charging "  + timeFullCharge + " [h].";
     }
+
 }

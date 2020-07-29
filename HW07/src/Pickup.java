@@ -9,7 +9,8 @@ public class Pickup extends Truck{
 
     @Override
     public String toString() {
-        return "Pick-Up " +"Brand " + getBrand() + ", max velocity " + getVelocity() + " km/h, cost " + getCost() +
-                " $, fuel consumption " + getFuelConsumption() + " l/100km, clearance "  + clearance + " mm.";
+        return "Pick-Up " +"Brand " + getBrand() + ", max velocity " + getVelocity() + " [km/h], cost " + getCost() +
+                " [$], fuel consumption " + getFuelConsumption() + " [l/100km], clearance "  + clearance + " [mm].";
     }
+
 }

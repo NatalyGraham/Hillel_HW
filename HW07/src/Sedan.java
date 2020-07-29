@@ -9,7 +9,8 @@ public class Sedan extends Vehicle {
 
     @Override
     public String toString() {
-        return "Sedan " +"Brand " + getBrand() + ", max velocity " + getVelocity() + " km/h, cost " + getCost() +
-                " $, fuel consumption " + getFuelConsumption() + " l/100km, passengers "  + maxPassengers;
+        return "Sedan " +"Brand " + getBrand() + ", max velocity " + getVelocity() + " [km/h], cost " + getCost() +
+                " [$], fuel consumption " + getFuelConsumption() + " [l/100km], passengers "  + maxPassengers;
     }
+
 }

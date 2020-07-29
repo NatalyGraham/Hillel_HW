@@ -1,3 +1,4 @@
+
 public class Runner {
 
     public static void main(String[] args) {
@@ -9,9 +10,17 @@ public class Runner {
         ECar tesla = new ECar("Tesla", 200, 43200, 0, 4, 2);
 
         TaxPark taximo = new TaxPark(volvo, fiesta, mustang, tundra, tesla);
-        System.out.println("Car's total cost is: " + taximo.calculateTotalCost() + " $");
-        System.out.println(volvo.toString());
-        System.out.println(tesla.toString());
+
+        System.out.println("Car's total cost is: " + taximo.calculateTotalCost() + " $.\n");
+
+        int minSpeed = 100;
+        int maxSpeed = 180;
+        System.out.println("Cars with max speed between " + minSpeed + " km/h and " + maxSpeed + " km/h.");
+        System.out.println(taximo.toString(taximo.speedCars(minSpeed, maxSpeed)));
+
+        System.out.println("Sorted cars by increasing of fuel consumption:");
+        System.out.println(taximo.toString(taximo.sortCars()));
 
     }
+
 }
