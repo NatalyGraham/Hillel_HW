@@ -4,9 +4,11 @@ abstract class Vehicle {
     private int velocity;
     private double cost;
     private String brand;
+    private String model;
 
-    Vehicle(String brand, int velocity, int cost, double fuelConsumption) {
+    Vehicle(String brand, String model, int velocity, int cost, double fuelConsumption) {
         this.brand = brand;
+        this.model = model;
         this.velocity = velocity;
         this.cost = cost;
         this.fuelConsumption = fuelConsumption;
@@ -24,13 +26,9 @@ abstract class Vehicle {
         return cost;
     }
 
-    public String getBrand() {
-        return brand;
-    }
-
     public String toString() {
-        return "Brand " + brand + ", max velocity" + velocity + ", cost " + cost + ", fuel consumption " +
-                fuelConsumption + ".\\n";
+        return "Car " + brand + " " + model + ", velocity " + velocity + " [km/h], cost " + cost + " [$], fuel consumption " +
+                fuelConsumption + " [l/100km]";
     }
 
 }
