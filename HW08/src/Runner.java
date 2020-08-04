@@ -29,5 +29,16 @@ public class Runner {
 
         //triangle.printLength();
 
+
+        Triangle t1 = new Triangle(point1, point2, point3);
+        Triangle t2 = new Triangle(point1, point2, point3);
+        Triangle t3 = new Triangle(point1, point2, point3);
+        Triangle t4 = new Triangle(point1, point2, point3);
+        Triangle t5 = new Triangle(point1, point2, point3);
+        Triangle t6 = new Triangle(point1, point2, point3);
+        Triangle t7 = new Triangle(point1, point2, point3);
+        Triangle t8 = new Triangle(new double[]{1, 1}, new double[]{2,2}, new double[]{3,3});
+
+
     }
 }

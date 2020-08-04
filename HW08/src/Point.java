@@ -15,4 +15,12 @@ public class Point {
     public double getCoordinateY() {
         return CoordinateY;
     }
+
+    public void setCoordinateX(double coordinateX) {
+        this.coordinateX = coordinateX;
+    }
+
+    public void setCoordinateY(double coordinateY) {
+        CoordinateY = coordinateY;
+    }
 }
