@@ -1,48 +1,35 @@
+import java.util.Arrays;
+
 public class Processor {
 
     private Triangle[] triangles;
-    private Triangle[] typedTriangles;
+    Triangle[] typedTriangles;
 
-    Processor(Triangle... tri){
-        System.arraycopy(tri, 0, triangles, 0, tri.length);
+    Processor(Triangle[] tri) {
+        this.triangles = tri;
     }
 
-    private void chooseTriangleType(String type){
+    public Triangle[] getTriangles() {
+        return triangles;
+    }
+
+    public Triangle[] chooseTriangleType(String type) {
         int j = 0;
-        //Triangle minPerimeter;
-        //Triangle maxPerimeter;
-        //Triangle minArea;
-        //Triangle maxArea;
+        //Triangle [] typedTriangles = new Triangle[5];
 
         //TODO: temp var?
-        for (int i = 0; i > triangles.length; i++){
-            /*Triangle minPerimeter = typedTriangles[0];
-            Triangle maxPerimeter = typedTriangles[0];
-            Triangle minArea = typedTriangles[0];
-            Triangle maxArea = typedTriangles[0];
-            double minPer = typedTriangles[0].getPerimeter();
-            double maxPer = typedTriangles[0].getPerimeter();
-            double minAr = typedTriangles[0].getArea();
-            double maxAr = typedTriangles[0].getArea();//*/
+        for (Triangle triangle : triangles) {
 
-            if (triangles[i].getStringTriangleType().equals(type)){
-                typedTriangles[j] = triangles[i];
-                Triangle minPerimeter = typedTriangles[j];
-                Triangle maxPerimeter = typedTriangles[j];
-                Triangle minArea = typedTriangles[j];
-                Triangle maxArea = typedTriangles[j];
-                double minPer = typedTriangles[j].getPerimeter();
-                double maxPer = typedTriangles[j].getPerimeter();
-                double minAr = typedTriangles[j].getArea();
-                double maxAr = typedTriangles[j].getArea();
+            if (triangle.getStringTriangleType().equals(type)) {
+                typedTriangles[j] = triangle;
                 j++;
             }
         }
+        return typedTriangles;
     }
 
 
-
-    public void setTrianglesArray (Triangle... t){
+    public void setTrianglesArray(Triangle... t) {
         System.arraycopy(t, 0, triangles, 0, t.length);
     }
 
@@ -59,4 +46,10 @@ public class Processor {
         return typedTriangles;
     }//*/
 
+    @Override
+    public String toString() {
+        return "Processor{" +
+                "triangles=" + Arrays.toString(triangles) +
+                '}';
+    }
 }
