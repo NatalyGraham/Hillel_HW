@@ -1,6 +1,6 @@
 public class TriangleType {
 
-    private String isosceles;
+/*    private String isosceles;
     private String equilateral;
     private String right;
     private String otherType;
@@ -87,4 +87,6 @@ public class TriangleType {
     public void setOtherType(String otherType) {
         this.otherType = otherType;
     }
+
+    //*/
 }
