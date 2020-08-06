@@ -51,10 +51,24 @@ public class Runner {
         double area1 = triangle1.calculateArea();
         triangle1.printReport(tt1, area1);//*/
 
-        Processor processor = new Processor(new Triangle[]{triangle1, triangle1});
+        Triangle triangle2 = new Triangle(new Point(4, 2), new Point(5, 7), new Point(-2, 5));
+        Triangle triangle3 = new Triangle(new Point(1, 1), new Point(6, 9.66025404), new Point(11, 1));
+        Triangle triangle4 = new Triangle(new Point(2, 2), new Point(5, 10), new Point(2, 10));
+
+        Processor processor = new Processor(new Triangle[]{triangle, triangle1, triangle2, triangle3, triangle4});
         //processor.chooseTriangleType("right with equal legs");
         //System.out.println(processor.chooseTriangleType("right with equal legs"));
-        System.out.println(Arrays.toString(processor.chooseTriangleType("right with equal legs")));
+        String[] types = {triangle.getStringTriangleType(), triangle1.getStringTriangleType(), triangle2.getStringTriangleType(), triangle3.getStringTriangleType(), triangle4.getStringTriangleType()};
+        System.out.println(Arrays.toString(types));
+
+        System.out.println("Type 1: " + Arrays.toString(processor.chooseTriangleType("equilateral")));
+        System.out.println("Type 2: " + Arrays.toString(processor.chooseTriangleType("isosceles")));
+        System.out.println("Type 3: " + Arrays.toString(processor.chooseTriangleType("right")));
+        System.out.println("Type 4: " + Arrays.toString(processor.chooseTriangleType("right with equal legs")));
+        System.out.println("Type 5: " + Arrays.toString(processor.chooseTriangleType("arbitrary")));
+        System.out.println("Type 0: " + Arrays.toString(processor.chooseTriangleType("isosceles")));
+
+
         //Triangle tmp = processor.getTriangles()[1];
         //System.out.println(tmp);
 
