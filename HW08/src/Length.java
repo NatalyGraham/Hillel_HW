@@ -18,11 +18,4 @@ public class Length {
         return length;
     }
 
-    public void setSqrLength(double sqrLength) {
-        this.sqrLength = sqrLength;
-    }
-
-    public void setLength(double length) {
-        this.length = length;
-    }
 }
