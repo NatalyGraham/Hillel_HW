@@ -1,22 +1,23 @@
 public class Triangle extends Figure {
 
-    private Point point1;
-    private Point point2;
-    private Point point3;
     private double sqrLength12;
     private double sqrLength23;
     private double sqrLength13;
-    private double mlength12;
-    private double mlength23;
-    private double mlength13;
+    private double absLength12;
+    private double absLength23;
+    private double absLength13;
     private double area;
     private double perimeter;
-    private int triangleType; //TODO: change int to String
+
     private String triangleName;
-    private String stringTriangleType;
+    private String triangleType;
+
     private Length length12;
     private Length length23;
     private Length length13;
+    private Point point1;
+    private Point point2;
+    private Point point3;
 
     Triangle(String name, Point point1, Point point2, Point point3) {
         this.triangleName = name;
@@ -39,12 +40,11 @@ public class Triangle extends Figure {
         sqrLength12 = length12.getSqrLength();
         sqrLength23 = length23.getSqrLength();
         sqrLength13 = length13.getSqrLength();
-        mlength12 = length12.getLength();
-        mlength23 = length23.getLength();
-        mlength13 = length13.getLength();
+        absLength12 = length12.getLength();
+        absLength23 = length23.getLength();
+        absLength13 = length13.getLength();
 
         triangleType = defineTriangleType();
-        stringTriangleType = defineType(triangleType);
         perimeter = calculatePerimeter();
         area = calculateArea();
     }
@@ -57,109 +57,75 @@ public class Triangle extends Figure {
         return perimeter;
     }
 
-    public String defineType(int type) {
-        switch (type) {
-            case (0):
-                return "not a triangle";
-            case (1):
-                return "equilateral";
-            case (2):
-                return "isosceles";
-            case (3):
-                return "right";
-            case (4):
-                return "right with equal legs";
-            case (5):
-                return "arbitrary";
-            default:
-                return "";
-        }
-    }
-
-    public int defineTriangleType() {
+    public String defineTriangleType() {
         if (isFigure(point1, point2, point3)) {
             if (isEquilateralTriangle()) {
-                triangleType = 1;
-                //stringTriangleType = "equilateral";
+                triangleType = "equilateral";
             } else if (isIsoscelesTriangle()) {
                 if (isRightTriangle()) {
-                    triangleType = 4;
-                    //stringTriangleType = "right with equal legs";
+                    triangleType = "right with equal legs";
                 } else {
-                    triangleType = 2;
-                    //stringTriangleType = "isosceles";
+                    triangleType = "isosceles";
                 }
             } else if (isRightTriangle()) {
-                triangleType = 3;
-                //stringTriangleType = "right";
+                triangleType = "right";
             } else {
-                triangleType = 5;
-                //stringTriangleType = "arbitrary";
+                triangleType = "arbitrary";
             }
-        } //else {
-        //triangleType = 0;
-        //}
+        }
         return triangleType;
     }
 
-    public String getStringTriangleType() {
-        return stringTriangleType;
+    public String getTriangleType() {
+        return triangleType;
     }
 
     public boolean isEquilateralTriangle() {
-        //       if (isFigure(point1,point2,point3)) {
-        if (mlength12 == mlength13 & mlength23 == mlength12 & mlength13 == mlength23) {
+
+        if (absLength12 == absLength13 & absLength23 == absLength12 & absLength13 == absLength23) {
             return true;
         } else return false;
-        //} else {
-//            return false;
-        //       }
+
     }
 
     public boolean isIsoscelesTriangle() {
-        //if (isTriangle()) {
+
         if (isEquilateralTriangle()) {
             return false;
         } else if (sqrLength12 == sqrLength13 || sqrLength23 == sqrLength12 || sqrLength23 == sqrLength13) {
             return true;
         } else return false;
-        //} else {
-        //    return false;
-        //}
+
     }
 
     public boolean isRightTriangle() {
-        //if (isTriangle()) {
+
         if (sqrLength12 == (sqrLength13 + sqrLength23) ||
                 sqrLength13 == (sqrLength12 + sqrLength23) ||
                 sqrLength23 == (sqrLength12 + sqrLength13)) {
             return true;
         } else return false;
-        //} else {
-        //    return false;
-        //}
+
+    }
+
+    @Override
+    public double calculatePerimeter() {
+
+        perimeter = absLength12 + absLength23 + absLength13;
+        return perimeter;
+    }
+
+    @Override
+    public double calculateArea() {
+
+        double halfPerimeter = calculatePerimeter() / 2;
+        area = Math.sqrt(halfPerimeter * (halfPerimeter - absLength12) * (halfPerimeter - absLength23) * (halfPerimeter - absLength13));
+        return area;
+
     }
 
     public String getTriangleName() {
         return triangleName;
-    }
-
-    public double calculatePerimeter() {
-
-        //if (isTriangle()) {
-        perimeter = mlength12 + mlength23 + mlength13;
-        return perimeter;
-        //}
-        //return 0;
-    }
-
-    public double calculateArea() {
-        //if (isTriangle()) {
-        double halfPerimeter = calculatePerimeter() / 2;
-        area = Math.sqrt(halfPerimeter * (halfPerimeter - mlength12) * (halfPerimeter - mlength23) * (halfPerimeter - mlength13));
-        return area;
-        // }
-        //return 0;
     }
 
     @Override
@@ -173,8 +139,7 @@ public class Triangle extends Figure {
                 (length12.getLength() + length13.getLength()) > length23.getLength()) {
             return true;
         } else {
-            triangleType = 0;
-            stringTriangleType = defineType(triangleType);
+            triangleType = "not a triangle";
             return false;
         }
     }
@@ -183,10 +148,10 @@ public class Triangle extends Figure {
     public String toString() {
         if (isFigure()) {
             return "Triangle " + triangleName + " [[" + point1.getCoordinateX() + ", " + point1.getCoordinateY() + "], [" + point2.getCoordinateX() + ", " + point2.getCoordinateY() + "], [" +
-                    point3.getCoordinateX() + ", " + point3.getCoordinateY() + "]] is " + stringTriangleType + ". Its perimeter is " + perimeter + ", its area is " + area + ".";
+                    point3.getCoordinateX() + ", " + point3.getCoordinateY() + "]] is " + triangleType + ". Its perimeter is " + perimeter + ", its area is " + area + ".";
         } else {
             return "Triangle " + triangleName + " [[" + point1.getCoordinateX() + ", " + point1.getCoordinateY() + "], [" + point2.getCoordinateX() + ", " + point2.getCoordinateY() + "], [" +
-                    point3.getCoordinateX() + ", " + point3.getCoordinateY() + "]] is " + stringTriangleType + ".";
+                    point3.getCoordinateX() + ", " + point3.getCoordinateY() + "]] is " + triangleType + ".";
         }
     }
 

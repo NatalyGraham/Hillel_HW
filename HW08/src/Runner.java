@@ -1,4 +1,3 @@
-import java.util.Arrays;
 
 public class Runner {
 
@@ -18,11 +17,11 @@ public class Runner {
         Triangle triangle12 = new Triangle("#12", new Point(1, 1), new Point(4, -8), new Point(12, 2));
         Triangle triangle13 = new Triangle("#13", new double[]{7,10}, new double[]{9,11},  new double[]{11,12});
 
-        Triangle[] proceedTri = new Triangle[]{triangle1, triangle2, triangle3, triangle4, triangle5,
+        Triangle[] triangles = new Triangle[]{triangle1, triangle2, triangle3, triangle4, triangle5,
                 triangle6, triangle7, triangle8, triangle9, triangle10, triangle11, triangle12, triangle13};
 
-        Processor processor = new Processor(proceedTri);
-        processor.showTrianglesType();
+        Processor processor = new Processor(triangles);
+        processor.showQuantityTrianglesType();
 
         //TYPES:    "not a triangle"
         //          "equilateral"
@@ -31,10 +30,11 @@ public class Runner {
         //          "right with equal legs"
         //          "arbitrary"
 
-        System.out.println(processor.getMaxArea("arbitrary"));
-        System.out.println(processor.getMinArea("isosceles"));
-        System.out.println(processor.getMaxPerimeter("right"));
-        System.out.println(processor.getMinPerimeter("arbitrary"));
+        String triangleType = "arbitrary";
+        System.out.println(triangleType + " triangle with maximum area is " + processor.getMaxArea(triangleType));
+        System.out.println(triangleType + " triangle with minimum area is " + processor.getMinArea(triangleType));
+        System.out.println(triangleType + " triangle with maximum perimeter is " + processor.getMaxPerimeter(triangleType));
+        System.out.println(triangleType + " triangle with minimum perimeter is " + processor.getMinPerimeter(triangleType));
 
 
     }

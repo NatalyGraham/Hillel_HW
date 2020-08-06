@@ -1,4 +1,3 @@
-import javax.sound.midi.Soundbank;
 
 public class Processor {
 
@@ -6,13 +5,15 @@ public class Processor {
     private double maxPerimeter;
     private double minArea;
     private double maxArea;
+    private int quantityEquilateral = 0;
+    private int quantityRight = 0;
+    private int quantityIsosceles = 0;
+    private int quantityArbitrary = 0;
 
     private Triangle choosenMinPerimeter;
     private Triangle choosenMaxPerimeter;
     private Triangle choosenMinArea;
     private Triangle choosenMaxArea;
-
-
 
     private Triangle[] triangles;
 
@@ -27,13 +28,13 @@ public class Processor {
         for (Triangle triangle : triangles) {
 
             if (type.equals("isosceles") || type.equals("right")) {
-                if (triangle.getStringTriangleType().equals("right with equal legs")) {
+                if (triangle.getTriangleType().equals("right with equal legs")) {
                     typedTriangles = modifyArray(typedTriangles, triangle);
-                } else if (triangle.getStringTriangleType().equals(type)) {
+                } else if (triangle.getTriangleType().equals(type)) {
                     typedTriangles = modifyArray(typedTriangles, triangle);
                 }
             } else if (type.equals("equilateral") || type.equals("right with equal legs") || type.equals("arbitrary")) {
-                if (triangle.getStringTriangleType().equals(type)) {
+                if (triangle.getTriangleType().equals(type)) {
                     typedTriangles = modifyArray(typedTriangles, triangle);
                 }
             }
@@ -83,6 +84,32 @@ public class Processor {
         }
     }
 
+    private void calculateQuantityDiffTriangles(){
+        for (Triangle tmpTri: triangles) {
+
+            switch (tmpTri.getTriangleType()){
+                case ("equilateral"): quantityEquilateral++; break;
+                case ("isosceles"): quantityIsosceles++; break;
+                case ("right"): quantityRight++; break;
+                case ("arbitrary"): quantityArbitrary++; break;
+                case ("right with equal legs"): quantityRight++; quantityIsosceles++; break;
+                default:
+                    break;
+            }
+
+        }
+    }
+
+    public void showQuantityTrianglesType() {
+        calculateQuantityDiffTriangles();
+        System.out.println("Quantity of different triangle types:");
+        System.out.println("Equilateral: " + quantityEquilateral);
+        System.out.println("Isosceles: " + quantityIsosceles);
+        System.out.println("Right: " + quantityRight);
+        System.out.println("Arbitrary: " + quantityArbitrary);
+        System.out.println();
+    }
+
     public Triangle getMaxArea (String type){
         chooseMaxMinTriangleParameters(chooseTriangleType(type));
         return choosenMaxArea;
@@ -101,14 +128,6 @@ public class Processor {
     public Triangle getMinPerimeter (String type){
         chooseMaxMinTriangleParameters(chooseTriangleType(type));
         return choosenMinPerimeter;
-    }
-
-    public void showTrianglesType() {
-        System.out.println("Triangle types are: ");
-        for (Triangle tmpTri: triangles) {
-            System.out.print(tmpTri.getTriangleName() + " : ");
-            System.out.println(tmpTri.getStringTriangleType());
-        }
     }
 
 }
