@@ -28,15 +28,15 @@ public class Runner {
 
         Processor processor = new Processor(triangles);
 
-        //System.out.println("Arbitrary are: " + processor.countArbitrary());
-        //System.out.println("Right are: " + processor.countRight());
-        //System.out.println("Isosceles are: " + processor.countIsosceles());
-        //System.out.println("Equilateral are: " + processor.countEquilateral());
+        System.out.println("Arbitrary are: " + processor.countArbitrary());
+        System.out.println("Right are: " + processor.countRight());
+        System.out.println("Isosceles are: " + processor.countIsosceles());
+        System.out.println("Equilateral are: " + processor.countEquilateral());
+        System.out.println();
 
-       System.out.println("MaxArea Arbitrary " + processor.choseMaxArea(Triangle::isArbitrary));
-        System.out.println("MinArea Isosceles " + processor.choseMinArea(Triangle::isIsosceles));
-        System.out.println("MaxPerimeter Equilateral " + processor.choseMaxPerimeter(Triangle::isEquilateral));
+        System.out.println("MaxPerimeter Arbitrary " + processor.choseMaxPerimeter(Triangle::isArbitrary));
+        System.out.println("MaxArea Isosceles " + processor.choseMaxArea(Triangle::isIsosceles));
+        System.out.println("MinArea Equilateral " + processor.choseMinArea(Triangle::isEquilateral));
         System.out.println("MinPerimeter Right " + processor.choseMinPerimeter(Triangle::isRight));
-
     }
 }

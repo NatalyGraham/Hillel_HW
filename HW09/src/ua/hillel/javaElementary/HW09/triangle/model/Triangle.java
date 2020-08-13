@@ -29,7 +29,7 @@ public class Triangle extends Figure {
 
 
     public double calculateArea() {
-        double semiPerimeter = calculatePerimeter()/2;
+        double semiPerimeter = calculatePerimeter() / 2;
         return Math.sqrt(semiPerimeter * (semiPerimeter - length12) * (semiPerimeter - length23) * (semiPerimeter - length13));
     }
 

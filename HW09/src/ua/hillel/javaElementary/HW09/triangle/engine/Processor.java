@@ -1,6 +1,5 @@
 package ua.hillel.javaElementary.HW09.triangle.engine;
 
-
 import ua.hillel.javaElementary.HW09.triangle.model.Triangle;
 import ua.hillel.javaElementary.HW09.triangle.utils.Criteria;
 import ua.hillel.javaElementary.HW09.triangle.utils.Function;
@@ -19,76 +18,81 @@ public class Processor {
         return countTrianglesByType(Triangle::isEquilateral);
     }
 
-    public int countIsosceles(){
+    public int countIsosceles() {
         return countTrianglesByType(Triangle::isIsosceles);
     }
 
-    public int countRight(){
+    public int countRight() {
         return countTrianglesByType(Triangle::isRight);
     }
 
-    public int countArbitrary(){
+    public int countArbitrary() {
         return countTrianglesByType(Triangle::isArbitrary);
     }
 
-    public Triangle choseMaxArea(Criteria<Triangle> type){
-        return choseByMaxCriteria(Triangle::calculateArea,type);
+    public Triangle choseMaxArea(Criteria<Triangle> type) {
+        return choseByMaxCriteria(Triangle::calculateArea, type);
     }
 
-    public Triangle choseMinArea(Criteria<Triangle> type){
-        return choseByMinCriteria(Triangle::calculateArea,type);
+    public Triangle choseMinArea(Criteria<Triangle> type) {
+        return choseByMinCriteria(Triangle::calculateArea, type);
     }
 
-    public Triangle choseMaxPerimeter(Criteria<Triangle> type){
-        return choseByMaxCriteria(Triangle::calculatePerimeter,type);
+    public Triangle choseMaxPerimeter(Criteria<Triangle> type) {
+        return choseByMaxCriteria(Triangle::calculatePerimeter, type);
     }
 
-    public Triangle choseMinPerimeter(Criteria<Triangle> type){
-        return choseByMinCriteria(Triangle::calculatePerimeter,type);
+    public Triangle choseMinPerimeter(Criteria<Triangle> type) {
+        return choseByMinCriteria(Triangle::calculatePerimeter, type);
     }
-
-
 
     private int countTrianglesByType(Criteria<Triangle> type) {
         int i = 0;
 
         for (Triangle triangle : triangles) {
-            if (type.test(triangle)) {
-
+            if (type.check(triangle)) {
                 i++;
             }
         }
+
         return i;
     }
 
-    private Triangle choseByMaxCriteria (Function<Triangle, Double> triProp, Criteria<Triangle> type){
-        Triangle choosenMax = null;
+    private Triangle choseByMaxCriteria(Function<Triangle, Double> triProp, Criteria<Triangle> type) {
+        Triangle choosenMax = triangles[0];
 
-        for (Triangle triangle:triangles) {
-            if(type.test(triangle)){
+        for (Triangle triangle : triangles) {
+            if (type.check(triangle) && type.check(triangle) != type.check(choosenMax)) {
                 choosenMax = triangle;
-                if(triProp.apply(choosenMax) > triProp.apply(triangle)){
+                if (triProp.convert(choosenMax) < triProp.convert(triangle)) {
+                    choosenMax = triangle;
+                }
+            } else if (type.check(triangle)) {
+                if (triProp.convert(choosenMax) < triProp.convert(triangle)) {
                     choosenMax = triangle;
                 }
             }
-
         }
+
         return choosenMax;
     }
 
-    //TODO:показывает последнего!!!
-    private Triangle choseByMinCriteria (Function<Triangle, Double> triProp, Criteria<Triangle> type){
-        Triangle choosenMin = null;
+    private Triangle choseByMinCriteria(Function<Triangle, Double> triProp, Criteria<Triangle> type) {
+        Triangle choosenMin = triangles[0];
 
-        for (Triangle triangle:triangles) {
-            if(type.test(triangle)){
+        for (Triangle triangle : triangles) {
+            if (type.check(triangle) && type.check(triangle) != type.check(choosenMin)) {
                 choosenMin = triangle;
-                if(triProp.apply(choosenMin) < triProp.apply(triangle)){
+                if (triProp.convert(choosenMin) > triProp.convert(triangle)) {
+                    choosenMin = triangle;
+                }
+            } else if (type.check(triangle)) {
+                if (triProp.convert(choosenMin) > triProp.convert(triangle)) {
                     choosenMin = triangle;
                 }
             }
-
         }
+
         return choosenMin;
     }
 

@@ -12,14 +12,5 @@ public class GeometryCalc {
         return Math.sqrt(calculateSqrLength(p1, p2));
     }
 
-    /*public static double calculateArea (double length1, double length2, double length3){
-        double semiPerimeter = calculatePerimeter(length1, length2, length3);
-        return Math.sqrt(semiPerimeter*(semiPerimeter-length1)*(semiPerimeter-length2)*(semiPerimeter*length3));
-    }//*/
-
-    /*public static double calculatePerimeter (double length1, double length2, double length3){
-        return length1 + length2 + length3;
-    }//*/
-
 }
 

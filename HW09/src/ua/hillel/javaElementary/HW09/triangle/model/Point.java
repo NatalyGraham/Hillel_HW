@@ -5,7 +5,7 @@ public class Point {
     private double coordinateX;
     private double CoordinateY;
 
-    public Point (double x, double y) {
+    public Point(double x, double y) {
         this.coordinateX = x;
         this.CoordinateY = y;
     }
