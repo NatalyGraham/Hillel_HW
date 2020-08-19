@@ -56,7 +56,8 @@ public class Flower{
     }
 
 
+
     public String toString() {
-        return "Flower " + name + " [ cost: " + cost + ", stem length: " + stem + ", lifetime: " + lifetime + "] ";
+        return "Flower " + name + " [cost: " + cost + ", stem length: " + stem + ", lifetime: " + lifetime + "] ";
     }
 }
