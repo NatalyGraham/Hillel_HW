@@ -1,4 +1,4 @@
-import ua.hillel.javaElementary.HW09.taxi.model.Vehicle;
+//import ua.hillel.javaElementary.HW09.taxi.model.Vehicle;
 
 public class ArrayModifier {
 
