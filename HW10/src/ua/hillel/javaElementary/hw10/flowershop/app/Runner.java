@@ -10,8 +10,8 @@ public class Runner {
     public static void main(String[] args) throws IOException {
 
         ConsoleProcessor proc = new ConsoleProcessor(new FlowerShop());
-            proc.start();
-            proc.stop();
+        proc.start();
+        proc.stop();
 
     }
 }

@@ -1,7 +1,6 @@
 package ua.hillel.javaElementary.hw10.flowershop.utils;
 
 import ua.hillel.javaElementary.hw10.flowershop.classes.Accessory;
-import ua.hillel.javaElementary.hw10.flowershop.classes.Flower;
 
 public class ArrayAccessoryModifier {
 

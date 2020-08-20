@@ -4,10 +4,12 @@ import ua.hillel.javaElementary.hw10.flowershop.classes.Accessory;
 import ua.hillel.javaElementary.hw10.flowershop.classes.Bouquet;
 import ua.hillel.javaElementary.hw10.flowershop.classes.Flower;
 import ua.hillel.javaElementary.hw10.flowershop.classes.FlowerShop;
+import ua.hillel.javaElementary.hw10.flowershop.exceptions.NegativeLengthException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
 
 public class ConsoleProcessor {
 
@@ -20,7 +22,6 @@ public class ConsoleProcessor {
     }
 
     public void start() throws IOException {
-
         int choice = 0;
         boolean exit = false;
 
@@ -37,7 +38,6 @@ public class ConsoleProcessor {
                 System.out.println("you should input a number!");
                 choice = Integer.parseInt(reader.readLine());
             }
-
 
             switch (choice) {
                 case (1): {
@@ -67,9 +67,7 @@ public class ConsoleProcessor {
 
         int choice = 0;
         boolean exit = false;
-        int bouquetsQuantity = flowerShop.getBouquets().length;
         Bouquet handleBouquet = new Bouquet();
-
 
         do {
 
@@ -96,7 +94,6 @@ public class ConsoleProcessor {
     }
 
     private void createBouquet() throws IOException {
-
 
         int choice = 0;
         boolean exit = false;
@@ -160,23 +157,24 @@ public class ConsoleProcessor {
         System.out.println("Flower stem Length, mm:");
         try {
             stemLength = Integer.parseInt(reader.readLine());
-        }catch (NumberFormatException nfe) {
+            isIntNegative(stemLength);
+        } catch (NumberFormatException nfe) {
             System.out.println("you should input a number!");
+            stemLength = Integer.parseInt(reader.readLine());
+        } catch (NegativeLengthException nle) {
+            System.out.println("you should input a positive number!");
             stemLength = Integer.parseInt(reader.readLine());
         }
 
         System.out.println("Flower age, days");
         try {
-        age = Integer.parseInt(reader.readLine());
-        }catch (NumberFormatException nfe) {
+            age = Integer.parseInt(reader.readLine());
+        } catch (NumberFormatException nfe) {
             System.out.println("you should input a number!");
             age = Integer.parseInt(reader.readLine());
         }
 
-        //flowerShop.createFlowers(new Flower(name, cost, stemLength, age));
-
         return new Flower(name, cost, stemLength, age);
-
 
     }
 
@@ -191,11 +189,10 @@ public class ConsoleProcessor {
         System.out.println("Accessory cost, $:");
         try {
             cost = Double.parseDouble(reader.readLine());
-        }catch (NumberFormatException nfe) {
+        } catch (NumberFormatException nfe) {
             System.out.println("you should input a number!");
             cost = Double.parseDouble(reader.readLine());
         }
-
 
         return new Accessory(name, cost);
     }
@@ -233,6 +230,14 @@ public class ConsoleProcessor {
                     handleBouquet.addAccessory(newAccessory);
                     break;
                 }
+                case (3): {
+                    System.out.println(flowerShop.sortFlowersByFresh(handleBouquet));
+                    break;
+                }
+                case (4): {
+                    chooseByLengthMenu(handleBouquet);
+                    break;
+                }
 
                 case (0): {
                     exit = true;
@@ -242,7 +247,30 @@ public class ConsoleProcessor {
             }
 
         } while (!exit);
+    }
 
+    private void chooseByLengthMenu(Bouquet handleBouquet) throws IOException {
+
+        int minLength;
+        int maxLength;
+
+        System.out.println("Input min length");
+        try {
+            minLength = Integer.parseInt(reader.readLine());
+        } catch (NumberFormatException nfe) {
+            System.out.println("you should input a number!");
+            minLength = Integer.parseInt(reader.readLine());
+        }
+
+        System.out.println("Input max length");
+        try {
+            maxLength = Integer.parseInt(reader.readLine());
+        } catch (NumberFormatException nfe) {
+            System.out.println("you should input a number!");
+            maxLength = Integer.parseInt(reader.readLine());
+        }
+
+        flowerShop.printChosenFlowersByStemLength(handleBouquet, minLength, maxLength);
 
     }
 
@@ -250,8 +278,15 @@ public class ConsoleProcessor {
         System.out.println(flowerShop.printBouquets());
     }
 
-    public void stop() throws IOException {
+    private boolean isIntNegative(int number) throws NegativeLengthException {
+        if (number <= 0) {
+            throw new NegativeLengthException();
+        } else {
+            return false;
+        }
+    }
 
+    public void stop() throws IOException {
         reader.close();
 
     }
