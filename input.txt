@@ -1,0 +1,5 @@
+truck,Volvo,FH,120,87000,36.8,9;
+sedan,Ford,Fiesta,160,20000,6.8,4;
+sedan,Ford,Mustang,280,80000,16.5,1;
+pickup,Toyota,Tundra,90,45000,20,1,300;
+ecar,Tesla,Model S,200,43200,0,4,2
