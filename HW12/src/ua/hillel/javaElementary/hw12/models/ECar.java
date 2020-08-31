@@ -11,7 +11,7 @@ public class ECar extends Sedan {
 
     @Override
     public String toString() {
-        return super.toString() + ", time for charging " + timeFullCharge + " [h]";
+        return super.toString() + "," + timeFullCharge;
     }
 
 }

@@ -55,7 +55,7 @@ public class TaxPark {
     }
 
     private Vehicle[] modifyArray(Vehicle[] initial, Vehicle added) {
-        
+
         Vehicle[] modified = new Vehicle[initial.length + 1];
         for (int i = 0; i < initial.length; i++) {
             modified[i] = initial[i];
@@ -65,11 +65,11 @@ public class TaxPark {
 
     }
 
-    public String toString(Vehicle[] speedCars) {
+    public String makeReport(Vehicle[] cars) {
 
         String report = "";
-        for (Vehicle car : speedCars) {
-            report += car.toString() + "\n";
+        for (Vehicle car : cars) {
+            report += car.toString() + ";\r\n";
         }
         return report;
 

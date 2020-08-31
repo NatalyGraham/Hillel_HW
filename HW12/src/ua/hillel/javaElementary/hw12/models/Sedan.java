@@ -11,7 +11,7 @@ public class Sedan extends Vehicle {
 
     @Override
     public String toString() {
-        return super.toString() + ", passengers " + maxPassengers;
+        return super.toString() + "," + maxPassengers;
     }
 
 }

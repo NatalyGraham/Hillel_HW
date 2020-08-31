@@ -1,16 +1,22 @@
 package ua.hillel.javaElementary.hw12.utils;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 public class Writer {
+    private static String text;
 
-    public static void writeFile(String fileName, String text){
+    public Writer(String text) {
+        this.text = text;
+    }
 
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))){
-                bw.write(text);
-        }catch (IOException ioe){
+    public static void writeFile(File fileName) {
+
+        byte[] file = text.getBytes();
+
+        try (FileOutputStream fos = new FileOutputStream(fileName)) {
+            fos.write(file);
+
+        } catch (IOException ioe) {
             System.out.println("IOException");
         }
 

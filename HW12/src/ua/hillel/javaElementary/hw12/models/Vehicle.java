@@ -31,8 +31,7 @@ abstract public class Vehicle {
     }
 
     public String toString() {
-        return "Car " + brand + " " + model + ", velocity " + velocity + " [km/h], cost " + cost + " [$], fuel consumption " +
-                fuelConsumption + " [l/100km]";
+        return type + "," + brand + "," + model + "," + velocity + "," + cost + "," + fuelConsumption;
     }
 
 }

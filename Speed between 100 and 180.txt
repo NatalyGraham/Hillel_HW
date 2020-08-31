@@ -1,0 +1,2 @@
+truck,Volvo,FH,120,87000.0,36.8,9;
+sedan,Ford,Fiesta,160,20000.0,6.8,4;
