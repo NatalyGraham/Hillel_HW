@@ -5,10 +5,15 @@ public class Node<T> {
     private T value;
     private Node<T> link;
 
-    /*public Node (T value, Node link){
-        this.value = value;
-        this.link = link;
-    }//*/
+    public String toString() {
+        String strLink;
+        try {
+            strLink = link.getValue().toString();
+        } catch (NullPointerException npe) {
+            strLink = "";
+        }
+        return value + " --> " + strLink;
+    }
 
     public T getValue() {
         return value;
@@ -24,10 +29,6 @@ public class Node<T> {
 
     public void setLink(Node<T> link) {
         this.link = link;
-    }
-
-    public String toString() {
-        return value + " --> " + link.getValue();
     }
 
 

@@ -1,15 +1,5 @@
 package ua.hillel.javaElementary.hw13;
 
-/*
-Инициализация списка(пустого и на основании массива)
-Добавление узла в список внутрь по нидексу +
-Удаление узла из начала, конца и n-го элемента
-Вывод элементов списка (toString()) +
-Взаимообмен двух узлов списка (по двум идексам)
-Количество элементов в списке +
-Проверить список на пустоту +
- */
-
 public class List<T> {
 
     private Node<T> head;
@@ -25,36 +15,26 @@ public class List<T> {
         }
     }
 
-
     public void add(int index, T element) {
-        checkElementIndex(index);
-        if (index == length) {
+
+        if (index == length - 1) {
             addLast(element);
+        } else if (index == 0) {
+            addFirst(element);
+        } else if (index >= length) {
+            try {
+                checkElementIndex(index);
+            } catch (IndexOutOfBoundsException ex) {
+                System.out.println(index + " more then last list index. Can not add the element.");
+            }
         } else {
             Node temp = getNode(index);
             Node addedNode = new Node();
             addedNode.setValue(element);
             addedNode.setLink(temp);
             getNode(index - 1).setLink(addedNode);
-
+            length++;
         }
-    }
-
-    public Node<T> getNode(int index) {
-        if (index == length) {
-            return tail;
-        } else {
-            Node temp = head;
-            int counter = 0;
-            while (counter != index) {
-                temp = temp.getLink();
-                counter++;
-            }
-            return temp;
-
-
-        }
-
     }
 
     public void addFirst(T element) {
@@ -68,6 +48,7 @@ public class List<T> {
             addedNode.setLink(head);
             head = addedNode;
         }
+
         length++;
     }
 
@@ -80,16 +61,61 @@ public class List<T> {
         } else {
             tail.setLink(addedNode);
         }
+
         tail = addedNode;
         length++;
     }
 
-    public void printList() {
-        Node temp = head;
-        while (temp != null) {
-            System.out.println(temp.getValue());
-            temp = temp.getLink();
+    public void remove(int index) {
+
+        if (index == length - 1) {
+            removeLast();
+        } else if (index == 0) {
+            removeFirst();
+        } else if (index >= length) {
+            try {
+                checkElementIndex(index);
+            } catch (IndexOutOfBoundsException ex) {
+                System.out.println(index + " more then last list index. Can not add the element.");
+            }
+        } else {
+            Node previous = getNode(index - 1);
+            Node next = getNode(index + 1);
+            previous.setLink(next);
+            length--;
         }
+    }
+
+    public void removeFirst() {
+
+        if (head == null) {
+            messageEmptyList();
+        } else {
+            head = getNode(1);
+            length--;
+        }
+
+    }
+
+    public void removeLast() {
+
+        if (tail == null) {
+            messageEmptyList();
+        } else {
+            tail = getNode(length - 2);
+            tail.setLink(null);
+            length--;
+        }
+
+    }
+
+    public void replace(int firstIndex, int secondIndex) {
+        Node firstNode = getNode(firstIndex);
+        Node secondNode = getNode(secondIndex);
+        remove(firstIndex);
+        add(firstIndex, (T) secondNode.getValue());
+        remove(secondIndex);
+        add(secondIndex, (T) firstNode.getValue());
     }
 
     public int getLength() {
@@ -106,30 +132,44 @@ public class List<T> {
 
     }
 
+    public Node<T> getNode(int index) {
+        try {
+            checkElementIndex(index);
+        } catch (IndexOutOfBoundsException ex) {
+            System.out.println(index + " more then last list index. Can not get node.");
+        }
+        if (index == length - 1) {
+            return tail;
+        } else {
+            Node temp = head;
+            int counter = 0;
+            while (counter != index) {
+                temp = temp.getLink();
+                counter++;
+            }
+            return temp;
+        }
+    }
+
     private void checkElementIndex(int index) {
         if (!isIndexExists(index))
             throw new IndexOutOfBoundsException(index);
     }
 
     private boolean isIndexExists(int index) {
-        return index >= 0 && index <= length;
+        return index >= 0 && index < length;
     }
 
-    public String toString(){
+    private void messageEmptyList() {
+        System.out.println("List is empty");
+    }
+
+    public String toString() {
         String out = "";
-        for (int i = 0; i < length ; i++) {
+        for (int i = 0; i < length; i++) {
             out = out + getNode(i).getValue() + " --> ";
         }
         return out;
     }
-
-    public Node<T> getHead() {
-        return head;
-    }
-
-    public Node<T> getTail() {
-        return tail;
-    }
-
 
 }
