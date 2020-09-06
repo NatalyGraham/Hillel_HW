@@ -3,8 +3,52 @@ package ua.hillel.javaElementary.hw13;
 public class List<T> {
 
     private Node<T> head;
-    private Node<T> tail;
+    //private Node<T> tail;
     private int length;
+
+
+    private class Node<T> {
+
+        private T value;
+        private Node<T> link;
+
+        public String toString() {
+            String strLink;
+            try {
+                strLink = link.getValue().toString();
+            } catch (NullPointerException npe) {
+                strLink = "";
+            }
+            return value + " --> " + strLink;
+
+        }//*/
+
+        public Node() {
+        }
+
+        public Node(T value, Node<T> link) {
+            this.value = value;
+            this.link = link;
+        }
+
+        public T getValue() {
+            return value;
+        }
+
+        public void setValue(T value) {
+            this.value = value;
+        }
+
+        public Node<T> getLink() {
+            return link;
+        }
+
+        public void setLink(Node<T> link) {
+            this.link = link;
+        }
+
+
+    }
 
     public List() {
     }
@@ -28,41 +72,36 @@ public class List<T> {
                 System.out.println(index + " more then last list index. Can not add the element.");
             }
         } else {
-            Node temp = getNode(index);
-            Node addedNode = new Node();
-            addedNode.setValue(element);
-            addedNode.setLink(temp);
+            Node<T> temp = getNode(index);
+            Node<T> addedNode = new Node<>(element, temp);
+            //addedNode.setValue(element);
+            //addedNode.setLink(temp);
             getNode(index - 1).setLink(addedNode);
             length++;
         }
     }
 
     public void addFirst(T element) {
-        Node addedNode = new Node();
+        Node<T> addedNode = new Node<>();
         addedNode.setValue(element);
 
-        if (head == null) {
-            head = addedNode;
-            tail = addedNode;
-        } else {
+        if (head != null) {
             addedNode.setLink(head);
-            head = addedNode;
         }
-
+        head = addedNode;
         length++;
     }
 
     public void addLast(T element) {
-        Node addedNode = new Node();
+        Node<T> addedNode = new Node<>();
         addedNode.setValue(element);
 
-        if (tail == null) {
+        if (head == null) {
             head = addedNode;
         } else {
-            tail.setLink(addedNode);
+            getNode(length - 1).setLink(addedNode);
         }
 
-        tail = addedNode;
         length++;
     }
 
@@ -76,12 +115,10 @@ public class List<T> {
             try {
                 checkElementIndex(index);
             } catch (IndexOutOfBoundsException ex) {
-                System.out.println(index + " more then last list index. Can not add the element.");
+                System.out.println(index + " more then last list index. Can not remove the element.");
             }
         } else {
-            Node previous = getNode(index - 1);
-            Node next = getNode(index + 1);
-            previous.setLink(next);
+            getNode(index - 1).setLink(getNode(index + 1));
             length--;
         }
     }
@@ -99,23 +136,41 @@ public class List<T> {
 
     public void removeLast() {
 
-        if (tail == null) {
+        if (head == null) {
             messageEmptyList();
         } else {
-            tail = getNode(length - 2);
-            tail.setLink(null);
+            getNode(length - 2).setLink(null);
             length--;
         }
 
     }
 
     public void replace(int firstIndex, int secondIndex) {
-        Node firstNode = getNode(firstIndex);
-        Node secondNode = getNode(secondIndex);
-        remove(firstIndex);
-        add(firstIndex, (T) secondNode.getValue());
-        remove(secondIndex);
-        add(secondIndex, (T) firstNode.getValue());
+
+        if (firstIndex >= length || secondIndex >= length) {
+            try {
+                checkElementIndex(firstIndex);
+            } catch (IndexOutOfBoundsException ex) {
+                System.out.println(firstIndex + " more then last list index. Can not remove the element.");
+            }
+            try {
+                checkElementIndex(secondIndex);
+            } catch (IndexOutOfBoundsException ex) {
+                System.out.println(secondIndex + " more then last list index. Can not replace the element.");
+            }
+        }else {
+            Node<T> tempSecondLink = getNode(secondIndex).getLink();
+            Node<T> tempPreviousToSecondLink = getNode(secondIndex-1).getLink();
+            getNode(secondIndex).setLink(getNode(firstIndex + 1));
+            getNode(secondIndex - 1). setLink(getNode(firstIndex));
+            getNode(firstIndex).setLink(tempSecondLink);
+            if (firstIndex == 0){
+                head = tempPreviousToSecondLink;
+            }else {
+                getNode(firstIndex-1).setLink(tempPreviousToSecondLink);
+            }
+
+        }
     }
 
     public int getLength() {
@@ -133,27 +188,33 @@ public class List<T> {
     }
 
     public Node<T> getNode(int index) {
+        boolean hasIndex = false;
         try {
-            checkElementIndex(index);
+            hasIndex = checkElementIndex(index);
         } catch (IndexOutOfBoundsException ex) {
             System.out.println(index + " more then last list index. Can not get node.");
         }
-        if (index == length - 1) {
-            return tail;
-        } else {
-            Node temp = head;
+        if (hasIndex) {
+            Node<T> temp = head;
             int counter = 0;
             while (counter != index) {
                 temp = temp.getLink();
                 counter++;
             }
             return temp;
+        }else {
+            return null;
         }
+
     }
 
-    private void checkElementIndex(int index) {
-        if (!isIndexExists(index))
+    private boolean checkElementIndex(int index) {
+        if (!isIndexExists(index)) {
             throw new IndexOutOfBoundsException(index);
+        } else {
+            return true;
+        }
+
     }
 
     private boolean isIndexExists(int index) {
@@ -171,5 +232,7 @@ public class List<T> {
         }
         return out;
     }
+
+    //LinkedList
 
 }
