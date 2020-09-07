@@ -5,7 +5,7 @@ public class Node<T> {
     private T value;
     private Node<T> link;
 
-    public String toString() {
+    /*public String toString() {
         String strLink;
         try {
             strLink = link.getValue().toString();
@@ -13,7 +13,7 @@ public class Node<T> {
             strLink = "";
         }
         return value + " --> " + strLink;
-    }
+    }//*/
 
     public T getValue() {
         return value;

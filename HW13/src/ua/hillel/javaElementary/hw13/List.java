@@ -112,10 +112,20 @@ public class List<T> {
     public void replace(int firstIndex, int secondIndex) {
         Node firstNode = getNode(firstIndex);
         Node secondNode = getNode(secondIndex);
+        remove(secondIndex);
         remove(firstIndex);
         add(firstIndex, (T) secondNode.getValue());
-        remove(secondIndex);
-        add(secondIndex, (T) firstNode.getValue());
+        getNode(firstIndex).setLink(getNode(firstIndex+1));
+        if (secondIndex == length-1){
+            add(secondIndex-1, (T) firstNode.getValue());
+        } else {
+            add(secondIndex, (T) firstNode.getValue());
+            getNode(secondIndex).setLink(getNode(secondIndex+1));
+        }
+
+        //getNode(secondIndex).setLink(getNode(secondIndex+1));
+
+
     }
 
     public int getLength() {

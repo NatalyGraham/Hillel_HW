@@ -31,7 +31,10 @@ public class Runner {
         intList.remove(4);
         System.out.println(intList);
 
-        intList.replace(2,5);
+        intList.replace(0,8);
+        System.out.println(intList);
+
+        intList.replace(3,5);
         System.out.println(intList);
 
         System.out.println(intList.getLength());
