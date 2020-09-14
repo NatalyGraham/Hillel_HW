@@ -1,5 +1,6 @@
 package ua.hillel.javaElementary.HW14.engine.impl;
 
+import ua.hillel.javaElementary.HW14.comparator.Comparable;
 import ua.hillel.javaElementary.HW14.comparator.impl.FuelConsumptionComparator;
 import ua.hillel.javaElementary.HW14.engine.TaxPark;
 import ua.hillel.javaElementary.HW14.model.Vehicle;
@@ -41,7 +42,7 @@ public class TaxParkTaximo implements TaxPark {
     }
 
     public void sortCars() {
-        Arrays.sort(cars, new Comparator<Vehicle>() {
+        Arrays.sort(cars, new Comparator<>() {
             @Override
             public int compare(Vehicle o1, Vehicle o2) {
                 return (int) ((o1.getFuelConsumption() - o2.getFuelConsumption()) * 100);
