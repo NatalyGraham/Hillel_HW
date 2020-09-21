@@ -1,9 +1,6 @@
 package ua.hillel.javaElementary.hw15.LinkedList;
 
-
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 
 public class List<T extends Comparable<T>> {
 
