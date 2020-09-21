@@ -1,6 +1,10 @@
 package ua.hillel.javaElementary.hw15.LinkedList;
 
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+
 public class List<T extends Comparable<T>> {
 
     private Node<T> head;
@@ -188,9 +192,8 @@ public class List<T extends Comparable<T>> {
         return out;
     }
 
-    public ListIter listIterator(int index) {
-        checkElementIndex(index);
-        return new ListIter();
+    public ListIterator<T> iterator() {
+        return new ListIterator<>();
     }
 
     private class Node<T> {
@@ -207,16 +210,36 @@ public class List<T extends Comparable<T>> {
             this.link = link;
         }
 
-    }
-
-    private class ListIter {
-
-        private Node next;
-        private int nextInd;
-
+        public String toString(){
+            return value + " --> ";
+        }
 
     }
 
-    //LinkedList
+    private class ListIterator<E> implements Iterator<E> {
+
+        private Node<E> curentNode;
+        private int pos;
+
+        ListIterator(){
+            this.curentNode = (Node<E>) head;
+            this.pos = 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return pos != length;
+        }
+
+        @Override
+        public E next() {
+
+            E next = (E) curentNode;
+            curentNode = curentNode.link;
+            pos++;
+            return next;
+        }
+
+    }
 
 }

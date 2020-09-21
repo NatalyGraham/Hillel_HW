@@ -1,5 +1,7 @@
 package ua.hillel.javaElementary.hw13;
 
+import java.util.LinkedList;
+
 public class List<T> {
 
     private Node<T> head;

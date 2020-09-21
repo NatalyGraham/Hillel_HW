@@ -2,6 +2,8 @@ package ua.hillel.javaElementary.hw15.LinkedList;
 
 import ua.hillel.javaElementary.hw15.LinkedList.List;
 
+import java.util.Iterator;
+
 public class Runner {
 
     public static void main(String[] args) {
@@ -40,6 +42,12 @@ public class Runner {
         System.out.println(intList);
 
         System.out.println(intList.getLength());
+        System.out.println();
+
+        Iterator iterator = intList.iterator();
+        while (iterator.hasNext()) {
+            System.out.print(iterator.next());
+        }
 
     }
 }
