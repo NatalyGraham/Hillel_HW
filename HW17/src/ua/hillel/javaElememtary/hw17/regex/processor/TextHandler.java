@@ -1,7 +1,7 @@
 package ua.hillel.javaElememtary.hw17.regex.processor;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,62 +13,71 @@ public class TextHandler {
         this.inputText = inputText;
     }
 
-    public int calculatePuncts(){
+    public int calculatePuncts() {
         int punctsQuantity = 0;
 
-        Pattern pattern = Pattern.compile("[!?:,.\"]");
+        Pattern pattern = Pattern.compile("\\p{Punct}");
         Matcher matcher = pattern.matcher(inputText);
-        //System.out.println(inputText);
-        while (matcher.find()){
+        while (matcher.find()) {
             punctsQuantity++;
         }
 
         return punctsQuantity;
     }
 
-    private String[] getWords (){
+    public List<String> countUniqueWords() {
+        List<String> uniqueWordQuantity = new ArrayList<>();
+        int quantity = 0;
 
-        Pattern pattern = Pattern.compile("[\\W 0-9]");
-        return pattern.split(inputText);
+        for (String s : getUniqueWords()) {
+            Pattern pattern = Pattern.compile("\\b" + s + "\\b");
+            Matcher matcher = pattern.matcher(inputText);
 
-    }
-
-    public HashMap<String, Integer> countWords(){
-        HashMap<String, Integer> foundWords = new HashMap<>();
-        int value = 1;
-        for (String key: getWords()) {
-            if (foundWords.containsKey(key)){
-                foundWords.put(key, foundWords.get(key) + 1);
-            }else {
-                foundWords.put(key, value);
+            while (matcher.find()) {
+                quantity++;
             }
-        }
-        foundWords.remove("");
-        return foundWords;
 
-    }
-
-    public String changeWords (int charPosition, char newChar){
-
-    }
-
-    public void printReport () {
-
-        for (Map.Entry entry: countWords().entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue() + " times");
+            uniqueWordQuantity.add(s + ": " + quantity);
+            quantity = 0;
         }
 
+        return uniqueWordQuantity;
     }
 
-    public void printReport2(){
-        for (String st: getWords()) {
-            System.out.println (st);
+    private List<String> getUniqueWords() {
+        Pattern pattern = Pattern.compile("(\\w+\\b)(?!.*\\1\\b)");
+        Matcher matcher = pattern.matcher(inputText);
+
+        List<String> uniqueWords = new ArrayList<>();
+
+        while (matcher.find()) {
+            uniqueWords.add(matcher.group());
         }
+        return uniqueWords;
     }
 
-    /*public HashMap <String, Integer> findWords (String[] input){
-        HashMap<String, Integer> found = new HashMap<>();
+    public String changeWords(int charPosition, char newChar) {
+        return inputText.replaceAll(String.format("(\\b\\p{Alpha}{%d})\\p{Alpha}", charPosition - 1), "$1" + newChar);
+    }
 
-        return
-    } //*/
+    public String matchFirstLast() {
+
+        StringBuilder uniqueWordsText = new StringBuilder();
+        for (String s : getUniqueWords()) {
+            uniqueWordsText.append(s + " ");
+        }
+
+        Pattern pattern = Pattern.compile("\\b((\\w)\\w*\\2)\\b");
+        Matcher matcher = pattern.matcher(uniqueWordsText);
+
+        StringBuilder uniqueWords = new StringBuilder();
+        while (matcher.find()) {
+            uniqueWords.append(matcher.group() + " ");
+        }
+
+        return uniqueWords.toString();
+
+    }
+
+
 }

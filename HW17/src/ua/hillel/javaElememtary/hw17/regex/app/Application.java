@@ -14,7 +14,11 @@ public class Application {
 
         System.out.println("Found " + textHandler.calculatePuncts() + " punctuation signs.");
 
-        textHandler.printReport();
+        System.out.println(textHandler.changeWords(8,'~'));
+
+        System.out.println(textHandler.matchFirstLast());
+
+        System.out.println(textHandler.countUniqueWords());
     }
 
 }
