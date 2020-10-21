@@ -1,6 +1,5 @@
 package ua.hillel.javaElementary.hw18.movieLibrary.entity;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 public class Director extends Entity {

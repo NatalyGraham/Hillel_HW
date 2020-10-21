@@ -5,13 +5,15 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 
 public interface MovieLibraryBDSource {
-    ResultSet getDataByDate(String sqlSquery, LocalDate previousDate, LocalDate currentDate) throws SQLException;
+    ResultSet getDataByDate(String sqlQuery, LocalDate date) throws SQLException;
 
-    ResultSet getDataByName(String sqlQuery, String film) throws SQLException;
+    ResultSet getDataByName(String sqlQuery, String movie) throws SQLException;
 
-    //ResultSet getDataByDate(String sqlQuery, int filmsCount) throws SQLException;
+    ResultSet getDataByMovieQuantity(String sqlQuery, int movieCount) throws SQLException;
 
-    int removeFilmsOlderGivenYears(int givenYears) throws SQLException;
+    ResultSet getDataDirector(String sqlQuery) throws SQLException;
+
+    int removeMoviesOlderThenGivenDate(String sqlQuery, LocalDate date) throws SQLException;
 
     void close() throws SQLException;
 }

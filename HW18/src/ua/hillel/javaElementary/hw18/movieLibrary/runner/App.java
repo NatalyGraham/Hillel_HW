@@ -1,22 +1,32 @@
 package ua.hillel.javaElementary.hw18.movieLibrary.runner;
 
 import ua.hillel.javaElementary.hw18.movieLibrary.engine.MovieLibrary;
+
 import java.sql.SQLException;
 
 public class App {
 
     public static void main(String[] args) {
-        MovieLibrary worker = null;
+        MovieLibrary movieLibrary = null;
         try {
-            worker = new MovieLibrary();
-            System.out.println(worker.findActorsFromFilm("Sully"));
+            movieLibrary = new MovieLibrary();
+            System.out.println(movieLibrary.findActorsFromMovie("Sully"));
             System.out.println();
-            System.out.println(worker.findMoviesByAge(6)); ;
+            System.out.println(movieLibrary.findMoviesByAge(6));
+            System.out.println();
+            System.out.println(movieLibrary.findActorsInManyMovies(2));
+            System.out.println();
+            System.out.println(movieLibrary.findActorsAsDirectors());
+            System.out.println();
+            int movieAge = 3;
+            System.out.println("Removed " + movieLibrary.removeMoviesOlderThanGivenYears(movieAge) + " movies older than " +
+                    movieAge + " years");
+
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             try {
-                worker.close();
+                movieLibrary.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }

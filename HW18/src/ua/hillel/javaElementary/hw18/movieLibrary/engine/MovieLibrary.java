@@ -1,6 +1,6 @@
 package ua.hillel.javaElementary.hw18.movieLibrary.engine;
 
-import com.mysql.cj.jdbc.result.ResultSetImpl;
+
 import ua.hillel.javaElementary.hw18.movieLibrary.entity.Actor;
 import ua.hillel.javaElementary.hw18.movieLibrary.entity.Director;
 import ua.hillel.javaElementary.hw18.movieLibrary.entity.Movie;
@@ -22,7 +22,7 @@ public class MovieLibrary {
         myMovies = new HomeMovieDBBD();
     }
 
-    public List<Actor> findActorsFromFilm(String movieName) {
+    public List<Actor> findActorsFromMovie(String movieName) {
         List<Actor> actorList = new ArrayList<>();
         try (ResultSet result = myMovies.getDataByName(QueryDB.ACTORS_FROM_FILM.getDbQuery(), movieName)) {
             actorList = makeActorList(result);
@@ -32,16 +32,11 @@ public class MovieLibrary {
         return actorList;
     }
 
-    public List<Movie> findMoviesByAge(int age) {  //List<Movie>
+    public List<Movie> findMoviesByAge(int age) {
 
         List<Movie> movieList = new ArrayList<>();
 
-        LocalDate currentDate = LocalDate.now();
-        LocalDate previousDate = LocalDate.of(currentDate.getYear() - age, Month.JANUARY, 1);
-
-
-
-        try (ResultSet result = myMovies.getDataByDate(QueryDB.MOVIES_BY_PRODUCTION_YEAR.getDbQuery(), previousDate, currentDate)) {
+        try (ResultSet result = myMovies.getDataByDate(QueryDB.MOVIES_BY_PRODUCTION_YEAR.getDbQuery(), getDate(age))) {
             movieList = makeMovieList(result);
 
         } catch (SQLException e) {
@@ -51,9 +46,46 @@ public class MovieLibrary {
         return movieList;
     }
 
+    public List<Actor> findActorsInManyMovies(int movieCount) {
+        List<Actor> actorList = new ArrayList<>();
+        try (ResultSet result = myMovies.getDataByMovieQuantity(QueryDB.ACTORS_FROM_N_FILM.getDbQuery(), movieCount)) {
+            actorList = makeActorList(result);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return actorList;
+    }
+
+    public List<Actor> findActorsAsDirectors() {
+        List<Actor> actorList = new ArrayList<>();
+        try (ResultSet result = myMovies.getDataDirector(QueryDB.ACTORS_AS_DIRECTORS.getDbQuery())) {
+            actorList = makeActorList(result);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return actorList;
+
+    }
+
+    public int removeMoviesOlderThanGivenYears(int years) {
+        int removedMovies = 0;
+
+        try {
+            removedMovies = myMovies.removeMoviesOlderThenGivenDate(QueryDB.REMOVE_MOVIES_BY_GIVEN_YEAR.getDbQuery(), getDate(years));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return removedMovies;
+    }
 
     public void close() throws SQLException {
         myMovies.close();
+    }
+
+    private LocalDate getDate(int year) {
+        LocalDate currentDate = LocalDate.now();
+        LocalDate previousDate = LocalDate.of(currentDate.getYear() - year, Month.JANUARY, 1);
+        return previousDate;
     }
 
     private List<Actor> makeActorList(ResultSet result) throws SQLException {
@@ -73,7 +105,7 @@ public class MovieLibrary {
         actorList.add(firstActor);
 
 
-        while (result.next() && result.getInt("movie_id") == movieID )  {
+        while (result.next() && result.getInt("movie_id") == movieID) {
 
             actorList.add(new Actor(result.getInt("actor_id"), result.getString("actor_name"), result.getDate("actor_birthday")));
 

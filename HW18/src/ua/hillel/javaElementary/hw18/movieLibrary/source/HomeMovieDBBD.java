@@ -1,7 +1,6 @@
 package ua.hillel.javaElementary.hw18.movieLibrary.source;
 
 import ua.hillel.javaElementary.hw18.movieLibrary.connectionDB.DBConn;
-import ua.hillel.javaElementary.hw18.movieLibrary.enums.QueryDB;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -15,10 +14,9 @@ public class HomeMovieDBBD implements MovieLibraryBDSource {
     }
 
     @Override
-    public ResultSet getDataByDate(String sqlQuery, LocalDate previousDate, LocalDate currentDate) throws SQLException {
+    public ResultSet getDataByDate(String sqlQuery, LocalDate date) throws SQLException {
         PreparedStatement preparedStatement = getStatement(sqlQuery);
-        preparedStatement.setDate(1, Date.valueOf(previousDate));
-        preparedStatement.setDate(2, Date.valueOf(currentDate));
+        preparedStatement.setDate(1, Date.valueOf(date));
         return preparedStatement.executeQuery();
     }
 
@@ -28,17 +26,25 @@ public class HomeMovieDBBD implements MovieLibraryBDSource {
         preparedStatement.setString(1, movie);
         return preparedStatement.executeQuery();
     }
-   /* @Override
-    public ResultSet getDataByDate(String sqlQuery, int movieCount) throws SQLException {
+
+    @Override
+    public ResultSet getDataByMovieQuantity(String sqlQuery, int movieCount) throws SQLException {
         PreparedStatement preparedSt = getStatement(sqlQuery);
         preparedSt.setInt(1, movieCount);
         return preparedSt.executeQuery();
-    }//*/
+    }
+
     @Override
-    public int removeFilmsOlderGivenYears(int givenYears) throws SQLException {
-        PreparedStatement preparedStatement = getStatement(QueryDB.DELETE_FILMS_BY_MORE_THEN_GIVEN_YEARS.getDbQuery());
-        preparedStatement.setInt(1, givenYears);
-        return preparedStatement.executeUpdate();
+    public ResultSet getDataDirector(String sqlQuery) throws SQLException {
+        PreparedStatement preparedSt = getStatement(sqlQuery);
+        return preparedSt.executeQuery();
+    }
+
+    @Override
+    public int removeMoviesOlderThenGivenDate(String sqlQuery, LocalDate date) throws SQLException {
+        PreparedStatement preparedSt = getStatement(sqlQuery);
+        preparedSt.setDate(1, Date.valueOf(date));
+        return preparedSt.executeUpdate();
     }
 
     private PreparedStatement getStatement(String sqlQuery) throws SQLException {
@@ -50,4 +56,6 @@ public class HomeMovieDBBD implements MovieLibraryBDSource {
     public void close() throws SQLException {
         connection.close();
     }
+
+
 }

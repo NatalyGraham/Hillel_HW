@@ -19,7 +19,7 @@ public class Movie extends Entity {
         this.productionCountry = productionCountry;
     }
 
-    public String toString(){ //TODO: release StringJoiner?
+    public String toString() {
         return name + ", " + productionDate + ", " + productionCountry + "\nDirector: " + director.getName() + "\nActors: " +
                 actors;
     }

@@ -5,7 +5,6 @@ import java.util.Date;
 
 public class Actor extends Entity {
 
-    //private int id;
     private String name;
     private Date birthday;
 
