@@ -13,8 +13,10 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.22</version>
+            <version>8.0.21</version>
+            <scope>compile</scope>
         </dependency>
+
 
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
         <dependency>
@@ -47,6 +49,7 @@
                         <archive>
                             <manifest>
                                 <addClasspath>true</addClasspath>
+                                <classpathPrefix>lib/</classpathPrefix>
                                 <mainClass>
                                     ua.hillel.javaElementary.hw19.movieLibrary.runner.App
                                 </mainClass>
@@ -63,6 +66,24 @@
                         </execution>
                     </executions>
                 </plugin>
+
+
+                <plugin>
+                    <!-- Build an executable JAR -->
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>3.1.0</version>
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <addClasspath>true</addClasspath>
+                                <classpathPrefix>lib/</classpathPrefix>
+                                <mainClass>ua.hillel.javaElementary.hw19.movieLibrary.runner.App</mainClass>
+                            </manifest>
+                        </archive>
+                    </configuration>
+                </plugin>
+
                 <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
                 <plugin>
                     <artifactId>maven-clean-plugin</artifactId>
